@@ -40,3 +40,6 @@ sudo mount /dev/mapper/vg_datos-lv_docker /var/lib/docker/
 sudo mount /dev/mapper/vg_datos-lv_workareas /work/
 sudo swapon /dev/vg_temp/lv_swap
 df -h
+
+sudo systemctl restart docker
+sudo systemctl status docker

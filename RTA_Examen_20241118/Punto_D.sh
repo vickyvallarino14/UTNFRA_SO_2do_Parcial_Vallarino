@@ -1,14 +1,13 @@
 #!/bin/bash
 
-cd ~/UTN-FRA_SO_Examenes/202406/ansible/roles/2do_parcial
 
-cat <<EOF > tasks/main.yml
+sudo tee -a /home/victoria/repogit/UTNFRA_SO_2do_Parcial_Vallarino/202406/ansible/roles/2do_parcial/tasks/main.yml << EOF 
 - name: Crear directorios necesarios
   file:
     path: "/tmp/2do_parcial/{{ item }}"
     state: directory
     mode: '0755'
-  loop:
+  with_items:
     - alumno
     - equipo
 
@@ -37,21 +36,21 @@ cat <<EOF > tasks/main.yml
     validate: 'visudo -cf %s'
 EOF
 
-sudo mkdir -p templates
+sudo mkdir -p /home/victoria/repogit/UTNFRA_SO_2do_Parcial_Vallarino/202406/ansible/roles/2do_parcial/templates
 
-cat <<EOF > templates/datos_alumno.txt.j2
+sudo tee /home/victoria/repogit/UTNFRA_SO_2do_Parcial_Vallarino/202406/ansible/roles/2do_parcial/templates/datos_alumno.txt.j2 << EOF
 plaintext
 Nombre: {{ nombre }}
 Apellido: {{ apellido }}
 Division: {{ division }}
 EOF
 
-cat <<EOF > templates/datos_equipo.txt.j2
+sudo tee /home/victoria/repogit/UTNFRA_SO_2do_Parcial_Vallarino/202406/ansible/roles/2do_parcial/templates/datos_equipo.txt.j2 << EOF
 plaintext
 IP: {{ ip }}
 Distribución: {{ distro }}
 Cantidad de Cores: {{ cores }}
 EOF
 
-cd ~/UTN-FRA_SO_Examenes/202406/ansible
-ansible-playbook -i inventory playbook.yml
+cd /home/victoria/repogit/UTNFRA_SO_2do_Parcial_Vallarino/202406/ansible
+sudo ansible-playbook -i inventory/hosts playbook.yml
